@@ -1,42 +1,34 @@
-import java.util.Random;
-
 public class TicTacToeBoard {
 
-    static boolean isHumanTurn;
-    static char humanSymbol;
-    static char computerSymbol;
+    // Board with empty cells '-'
+    static char[][] board = {
+        {'-', '-', '-'},
+        {'-', '-', '-'},
+        {'-', '-', '-'}
+    };
 
-    
     public static void main(String[] args) {
-        tossAndAssignSymbols();
-        displayTossResult();
+
+        // Test cases
+        System.out.println(isValidMove(1, 1)); // true
+        board[1][1] = 'X';                    // fill cell
+        System.out.println(isValidMove(1, 1)); // false
+        System.out.println(isValidMove(3, 0)); // false (out of bounds)
     }
 
-    
-    static void tossAndAssignSymbols() {
-        Random rand = new Random();
-        int toss = rand.nextInt(2); // 0 or 1
+    // UC5: Validate move
+    static boolean isValidMove(int row, int col) {
 
-        if (toss == 0) {
-            isHumanTurn = true;
-            humanSymbol = 'X';
-            computerSymbol = 'O';
-        } else {
-            isHumanTurn = false;
-            humanSymbol = 'O';
-            computerSymbol = 'X';
-        }
-    }
-
- 
-    static void displayTossResult() {
-        if (isHumanTurn) {
-            System.out.println("Human starts first.");
-        } else {
-            System.out.println("Computer starts first.");
+        // Check boundaries (0–2)
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
         }
 
-        System.out.println("Human Symbol: " + humanSymbol);
-        System.out.println("Computer Symbol: " + computerSymbol);
+        // Check if cell is empty
+        if (board[row][col] != '-') {
+            return false;
+        }
+
+        return true;
     }
 }
