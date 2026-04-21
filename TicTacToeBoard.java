@@ -1,34 +1,26 @@
-public class TicTacToeBoard {
+public class TicTacToe {
 
-    // Board with empty cells '-'
-    static char[][] board = {
-        {'-', '-', '-'},
-        {'-', '-', '-'},
-        {'-', '-', '-'}
-    };
+    static char[][] board = new char[3][3];
 
     public static void main(String[] args) {
 
-        // Test cases
-        System.out.println(isValidMove(1, 1)); // true
-        board[1][1] = 'X';                    // fill cell
-        System.out.println(isValidMove(1, 1)); // false
-        System.out.println(isValidMove(3, 0)); // false (out of bounds)
+        initializeBoard(); // fill with '-'
+
+        placeMove(0, 0, 'X'); // correct method call
+        System.out.println(board[0][0]);
     }
 
-    // UC5: Validate move
-    static boolean isValidMove(int row, int col) {
-
-        // Check boundaries (0–2)
-        if (row < 0 || row > 2 || col < 0 || col > 2) {
-            return false;
+    // Initialize board with '-'
+    static void initializeBoard() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = '-';
+            }
         }
+    }
 
-        // Check if cell is empty
-        if (board[row][col] != '-') {
-            return false;
-        }
-
-        return true;
+    // UC6: Place move on board
+    static void placeMove(int row, int col, char symbol) {
+        board[row][col] = symbol;
     }
 }
