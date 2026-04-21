@@ -1,42 +1,44 @@
-import java.util.Random;
+import java.util.Scanner;
 
 public class TicTacToeBoard {
 
-    static boolean isHumanTurn;
-    static char humanSymbol;
-    static char computerSymbol;
+    static Scanner sc = new Scanner(System.in);
 
-    
     public static void main(String[] args) {
-        tossAndAssignSymbols();
-        displayTossResult();
+
+        int slot = getUserSlot();   // take input
+
+        int row = getRowFromSlot(slot);
+        int col = getColFromSlot(slot);
+
+        System.out.println("You selected slot: " + slot);
+        System.out.println("Row: " + row);
+        System.out.println("Column: " + col);
     }
 
-    
-    static void tossAndAssignSymbols() {
-        Random rand = new Random();
-        int toss = rand.nextInt(2); // 0 or 1
+    // UC3 reused: take input (1–9)
+    static int getUserSlot() {
+        int slot;
 
-        if (toss == 0) {
-            isHumanTurn = true;
-            humanSymbol = 'X';
-            computerSymbol = 'O';
-        } else {
-            isHumanTurn = false;
-            humanSymbol = 'O';
-            computerSymbol = 'X';
+        while (true) {
+            System.out.print("Enter a slot (1-9): ");
+            slot = sc.nextInt();
+
+            if (slot >= 1 && slot <= 9) {
+                return slot;
+            } else {
+                System.out.println("Invalid input! Enter number between 1 and 9.");
+            }
         }
     }
 
- 
-    static void displayTossResult() {
-        if (isHumanTurn) {
-            System.out.println("Human starts first.");
-        } else {
-            System.out.println("Computer starts first.");
-        }
+    // UC4: Convert slot → row
+    static int getRowFromSlot(int slot) {
+        return (slot - 1) / 3;
+    }
 
-        System.out.println("Human Symbol: " + humanSymbol);
-        System.out.println("Computer Symbol: " + computerSymbol);
+    // UC4: Convert slot → column
+    static int getColFromSlot(int slot) {
+        return (slot - 1) % 3;
     }
 }
